@@ -1,5 +1,7 @@
 # Kubernetes GitOps & Zero-Trust Infrastructure
 
+![Kubernetes GitOps Security & Linting](https://github.com/egekarabey35/k8s-gitops-zero-trust/actions/workflows/k8s-security.yaml/badge.svg)
+
 Production-grade Kubernetes architecture enforcing strict Zero-Trust Network Policies, Pod Security Standards (Restricted PSS), and continuous reconciliation via ArgoCD (GitOps).
 
 ## 📊 Security & Audit Metrics
@@ -12,6 +14,22 @@ Production-grade Kubernetes architecture enforcing strict Zero-Trust Network Pol
 | **CI/CD Shift-Left Compliance** | **100% Pass** | `kube-linter` gated zero privilege escalation violations |
 | **GitOps Drift Reconciliation** | **Automated** | ArgoCD self-heal and prune enabled |
 
+## 🚀 Quickstart & Reproduction
+
+To reproduce this exact cluster and architecture locally:
+
+```bash
+# 1. Provision hardened local Kind cluster
+kind create cluster --config kind-config.yaml --name zero-trust-cluster
+
+# 2. Install ArgoCD Engine
+kubectl create namespace argocd
+kubectl apply -n argocd -f [https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml](https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml)
+
+# 3. Bootstrap GitOps Application
+kubectl apply -f bootstrap/application.yaml
+```
+
 ## Architecture & Security Highlights
 
 - **Pod Security Standards (Restricted):** Rejects privileged containers, root execution, and privilege escalation at namespace level.
@@ -19,15 +37,15 @@ Production-grade Kubernetes architecture enforcing strict Zero-Trust Network Pol
 - **GitOps Continuous Delivery:** Declarative sync managed by ArgoCD with automated self-healing.
 - **Automated Security Gate:** GitHub Actions pipeline running kube-linter to block insecure manifests before deployment.
 
-## Verification Commands
+## 🧪 Verification Commands
 
-Pod Security rejection test:
+**Pod Security rejection test (Admission Control):**
 ```bash
 kubectl run privileged-test --image=busybox --restart=Never -n production --command -- sleep 60
 # Expected: Error from server (Forbidden): violates PodSecurity "restricted:latest"
 ```
 
-Traffic whitelist test:
+**Traffic whitelist test (NetworkPolicy Enforcement):**
 ```bash
 FRONTEND_POD=$(kubectl get pod -l app=frontend -n production -o jsonpath="{.items[0].metadata.name}")
 kubectl exec -n production $FRONTEND_POD -- nc -zvw3 redis-backend 6379
