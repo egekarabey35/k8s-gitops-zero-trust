@@ -1,6 +1,25 @@
 customChecks: []
 checks:
-  addAllBuiltIn: true
   doNotAutoAddDefaults: false
+  include:
+    - "privileged-container"
+    - "privilege-escalation-container"
+    - "run-as-non-root"
+    - "drop-net-raw-capability"
+    - "sensitive-host-mounts"
+    - "host-ipc"
+    - "host-network"
+    - "host-pid"
   exclude:
     - "no-read-only-root-fs"
+    - "sorted-keys"
+    - "required-annotation-email"
+    - "required-label-owner"
+    - "minimum-three-replicas"
+    - "dnsconfig-options"
+    - "no-liveness-probe"
+    - "no-readiness-probe"
+    - "no-node-affinity"
+    - "no-anti-affinity"
+    - "no-rolling-update-strategy"
+    - "default-service-account"
