@@ -14,6 +14,8 @@ Production-grade Kubernetes architecture enforcing strict Zero-Trust Network Pol
 | **CI/CD Shift-Left Compliance** | **100% Pass** | `kube-linter` gated zero privilege escalation violations |
 | **GitOps Drift Reconciliation** | **Automated** | ArgoCD self-heal and prune enabled |
 
+> **Note on CI/CD Policy Tuning:** Linter scope is intentionally targeted to Zero-Trust / PSS-relevant hardening checks via an explicit include configuration. Operational hygiene rules (e.g., minimum replicas, probes, node affinity) are deliberately excluded to focus strictly on workload security boundaries.
+
 ## 🚀 Quickstart & Reproduction
 
 To reproduce this exact cluster and architecture locally:
