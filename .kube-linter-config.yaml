@@ -1,0 +1,6 @@
+customChecks: []
+checks:
+  addAllBuiltIn: true
+  doNotAutoAddDefaults: false
+  exclude:
+    - "no-read-only-root-fs"

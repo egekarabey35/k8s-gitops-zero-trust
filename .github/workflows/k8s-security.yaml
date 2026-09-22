@@ -1,0 +1,21 @@
+name: Kubernetes GitOps Security & Linting
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  lint-and-scan:
+    name: Kube-Linter Security Gate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Scan Kubernetes Manifests with Kube-Linter
+        uses: stackrox/kube-linter-action@v1.0.4
+        with:
+          directory: apps/guestbook
+          config: .kube-linter-config.yaml
