@@ -11,7 +11,6 @@ checks:
     - "host-network"
     - "host-pid"
   exclude:
-    - "no-read-only-root-fs"
     - "sorted-keys"
     - "required-annotation-email"
     - "required-label-owner"
@@ -22,4 +21,3 @@ checks:
     - "no-node-affinity"
     - "no-anti-affinity"
     - "no-rolling-update-strategy"
-    - "default-service-account"

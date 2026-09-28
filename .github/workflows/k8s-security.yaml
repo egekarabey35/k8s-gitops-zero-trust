@@ -6,16 +6,19 @@ on:
   pull_request:
     branches: [ main ]
 
+permissions:
+  contents: read
+
 jobs:
   lint-and-scan:
     name: Kube-Linter Security Gate
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v4
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
       - name: Scan Kubernetes Manifests with Kube-Linter
-        uses: stackrox/kube-linter-action@v1.0.4
+        uses: stackrox/kube-linter-action@ca0d55b925470deb6b31e9c2b76778dc65b597b6 # v1.0.4
         with:
           directory: apps/guestbook
           config: .kube-linter-config.yaml
